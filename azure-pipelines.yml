@@ -18,10 +18,9 @@ steps:
 
 - task: UseDotNet@2
   inputs:
-    version: '3.0.x'
+    version: '3.1.x'
     packageType: runtime
     includePreviewVersions: true
-
 
 - task: DotNetCoreCLI@2
   displayName: 'Restore'
@@ -44,4 +43,3 @@ steps:
     publishWebProjects: true
     arguments: '-configuration $(BuildConfiguration)'
     zipAfterPublish: true
-    modifyOutputPath: true
