@@ -20,15 +20,18 @@ steps:
       inputs:
         version: '3.1.x'
         packageType: sdk
+    
     - script: dotnet build --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildConfiguration)'
+
+    # script: dotnet publish True.Test --output $(Build.ArtifactStagingDirectory)\pixxles
 
     - task: DotNetCoreCLI@2
       displayName: "Publish"
       inputs:
         command: 'publish'
         publishWebProjects: true
-        arguments: '-r linux-x64 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
+        arguments: '-r linux-x64 True.Test --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/test'
         zipAfterPublish: true
 
     - task: AzureWebApp@1
@@ -37,5 +40,5 @@ steps:
         azureSubscription: 'Free Trial(452736f5-593f-4c13-b1f1-18976add034c)'
         appType: 'webApp'
         appName: 'pixxles-dev-test'
-        package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+        package: '$(Build.ArtifactStagingDirectory)/test/*.zip'
         deploymentMethod: 'zipDeploy'
