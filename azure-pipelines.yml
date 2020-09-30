@@ -30,3 +30,12 @@ steps:
         publishWebProjects: true
         arguments: '-r linux-x64 --configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)'
         zipAfterPublish: true
+
+    - task: AzureWebApp@1
+      displayName: "Deploy"
+      inputs:
+        azureSubscription: 'Free Trial(452736f5-593f-4c13-b1f1-18976add034c)'
+        appType: 'webApp'
+        appName: 'pixxles-dev-test'
+        package: '$(Build.ArtifactStagingDirectory)/**/*.zip'
+        deploymentMethod: 'zipDeploy'
