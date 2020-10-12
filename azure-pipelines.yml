@@ -35,3 +35,10 @@ steps:
         appName: 'pixxles-dev-test'
         package: '$(Build.ArtifactStagingDirectory)/pixxles'
         deploymentMethod: 'auto'
+
+    - task: PublishBuildArtifacts@1
+      condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+      inputs:
+        PathtoPublish: '$(Build.BinariesDirectory)/release-artifact'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
