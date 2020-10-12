@@ -24,7 +24,7 @@ steps:
     - script: dotnet build --configuration $(buildConfiguration)
       displayName: 'dotnet build $(buildConfiguration)'
 
-    - script: dotnet publish --output $(Build.ArtifactStagingDirectory)/pixxles
+    - script: dotnet publish --output $(Build.BinariesDirectory)/release-artifact
       displayName: 'dotnet publish $(buildConfiguration)'
 
     - task: AzureWebApp@1
